@@ -9,6 +9,7 @@ tags: [population-dynamics, ricker, chaos, mathematics]
 # Viz flags — body classes for core.js CDN detection
 math: true
 viz: true
+comments: true
 ---
 
 ## Introduction

@@ -15,17 +15,18 @@
 {% assign _gallery_images = include.images | default: page.gallery %}
 {% if _gallery_images and _gallery_images.size > 0 %}
 
+{::nomarkdown}
 <div
   class="gallery"
   x-data="gallery()"
-  x-init="images = {{ _gallery_images | jsonify }}"
+  x-init='images = {{ _gallery_images | jsonify }}'
 >
 
   <!-- Grid -->
   {% for img in _gallery_images %}
   <button
     class="gallery-item"
-    @click="open({{ forloop.index0 }})"
+    @click="show({{ forloop.index0 }})"
     aria-label="View photo {% if img.alt %}: {{ img.alt }}{% else %}{{ forloop.index }}{% endif %}"
     type="button"
   >
@@ -47,13 +48,13 @@
     x-transition:leave="gallery-lb-leave"
     x-transition:leave-start="gallery-lb-leave-start"
     x-transition:leave-end="gallery-lb-leave-end"
-    @click.self="close()"
+    @click.self="hide()"
     role="dialog"
     aria-modal="true"
     :aria-label="images[idx]?.alt || 'Photo lightbox'"
     style="display:none;"
   >
-    <button class="gallery-lb-close" @click="close()" aria-label="Close" x-ref="close" type="button">
+    <button class="gallery-lb-close" @click="hide()" aria-label="Close" x-ref="close" type="button">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
@@ -91,5 +92,6 @@
   </div><!-- /.gallery-lightbox -->
 
 </div><!-- /.gallery -->
+{:/nomarkdown}
 
 {% endif %}

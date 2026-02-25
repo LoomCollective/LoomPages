@@ -1047,6 +1047,101 @@ footer {
 .gallery-lb-leave-start { opacity: 1; }
 .gallery-lb-leave-end   { opacity: 0; }
 
+/* ============================================================================
+   Photo carousel
+   ============================================================================ */
+
+.carousel {
+  position: relative;
+  margin: 32px 0;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bg2);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.carousel-slide img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-caption {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  text-align: center;
+  padding: 10px 16px 14px;
+  margin: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  z-index: 2;
+}
+.carousel-btn:hover { background: rgba(0, 0, 0, 0.7); }
+.carousel-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.carousel-btn-prev { left: 12px; }
+.carousel-btn-next { right: 12px; }
+
+/* Shift buttons up to clear caption when one is present */
+.carousel:has(.carousel-caption) .carousel-btn {
+  top: calc(50% - 22px);
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0 2px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--text-3);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+  opacity: 0.5;
+}
+.carousel-dot:hover { opacity: 0.8; }
+.carousel-dot-active {
+  background: var(--accent);
+  opacity: 1;
+  transform: scale(1.25);
+}
+
 /* Post navigation */
 .post-nav { border-top: 1px solid var(--border); margin-top: 48px; padding-top: 32px; }
 .post-nav-inner {

@@ -100,24 +100,36 @@ Alpine.data('gallery', () => ({
   init() {
     window.addEventListener('keydown', (e) => {
       if (!this.active) return;
-      if (e.key === 'Escape')     { this.close(); return; }
+      if (e.key === 'Escape')     { this.hide(); return; }
       if (e.key === 'ArrowLeft')  { this.prev();  return; }
       if (e.key === 'ArrowRight') { this.next();  return; }
     });
   },
 
-  open(idx) {
+  show(idx) {
     this.idx = idx;
     this.active = true;
     this.$nextTick(() => this.$refs.close?.focus());
   },
 
-  close() {
+  hide() {
     this.active = false;
   },
 
   prev() { if (this.idx > 0) this.idx--; },
   next() { if (this.idx < this.images.length - 1) this.idx++; },
+}));
+
+// ── Photo carousel ─────────────────────────────────────────────────────────────
+// Used by _includes/carousel.html. Images passed via x-init from Liquid JSON.
+
+Alpine.data('carousel', () => ({
+  idx: 0,
+  images: [],
+
+  prev() { if (this.idx > 0) this.idx--; },
+  next() { if (this.idx < this.images.length - 1) this.idx++; },
+  goTo(i) { this.idx = i; },
 }));
 
 Alpine.start();

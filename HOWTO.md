@@ -25,6 +25,9 @@ A complete reference for building, configuring, and writing content for the Loom
 17. [GitHub Actions deployment](#17-github-actions-deployment)
 18. [Video embeds](#18-video-embeds)
 19. [Presentations](#19-presentations)
+20. [Photo galleries](#20-photo-galleries)
+21. [Authors](#21-authors)
+22. [Drafts workflow](#22-drafts-workflow)
 
 ---
 
@@ -223,7 +226,7 @@ categories: [Energy]                # Optional — one category recommended; use
 tags: [solar, policy, net-zero]     # Optional — multiple tags; used for /tag/ archive
 
 # Authorship
-author: Your Name                   # Optional — falls back to site.author
+author: paul-hobson                 # Optional — slug from _data/authors.yml; falls back to site.author
 
 # Images
 image: /assets/images/feature.jpg   # Optional — feature image at top of post
@@ -1316,6 +1319,192 @@ Override CSS lives in `assets/css/presentation.css` (a static file, not Vite-bui
 
 ---
 
+## 20. Photo galleries
+
+The `gallery` include renders a responsive 3-column photo grid with a click-to-enlarge lightbox powered by Alpine.js. No extra libraries or dependencies.
+
+### Front matter
+
+Define the image list in the post's front matter:
+
+```yaml
+---
+layout: post
+title: "Glacier Field Sites"
+gallery:
+  - src: /assets/images/posts/findelen-01.jpg
+    alt: "Findelen Glacier from the lateral moraine"
+    caption: "Looking south towards the Findelen, September 2018"
+  - src: /assets/images/posts/gorner-01.jpg
+    alt: "Gorner Glacier confluence"
+  - src: /assets/images/posts/mer-de-glace.jpg
+    alt: "Mer de Glace ablation zone"
+    caption: "Annual ice loss markers, July 2017"
+---
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `src` | Yes | Image path — absolute (`/assets/images/...`) recommended |
+| `alt` | Yes | Alt text for accessibility and screen readers |
+| `caption` | No | Caption shown below the image in the lightbox |
+
+### Usage in content
+
+```liquid
+{% include gallery.html %}
+```
+
+This uses `page.gallery` by default. To pass a custom array:
+
+```liquid
+{% include gallery.html images=page.my_custom_gallery %}
+```
+
+### Lightbox controls
+
+| Action | Control |
+|--------|---------|
+| Open | Click any thumbnail |
+| Close | `Esc`, close button, or click outside the image |
+| Previous / next | `←` / `→` arrow keys, or the on-screen buttons |
+
+A `1 / N` counter appears at the bottom. Captions are shown only when present.
+
+### Recommended image sizing
+
+| Use | Recommended size |
+|-----|-----------------|
+| Thumbnail (grid) | 800 × 600 px |
+| Lightbox (full view) | 1600 × 1200 px or native |
+
+The grid cells use a fixed `4:3` aspect ratio with `object-fit: cover`. The lightbox displays images at their natural size, constrained to the viewport.
+
+### Organising gallery images
+
+Keep gallery images in a post-specific folder:
+
+```
+assets/images/posts/glaciers-field-sites/findelen-01.jpg
+assets/images/posts/glaciers-field-sites/gorner-01.jpg
+```
+
+---
+
+## 21. Authors
+
+Author profiles are stored in `_data/authors.yml`, keyed by slug. All display locations (post header, post card, essay hero, author bio card, author profile page) resolve the slug to the full data automatically.
+
+### Adding an author
+
+Add an entry to `_data/authors.yml`:
+
+```yaml
+jane-smith:
+  name: Jane Smith
+  bio: >
+    Hydrologist and climate scientist. Research focus on Arctic river discharge
+    and permafrost hydrology.
+  image: /assets/images/authors/jane-smith.jpg   # optional
+  location: "Montréal, QC"                        # optional
+  website: "https://janesmith.ca"                 # optional — leave "" to hide
+  twitter: "janesmith"                            # optional — handle only, no @
+  github: "janesmith"                             # optional
+```
+
+Create a profile page at `_pages/authors/jane-smith.md`:
+
+```yaml
+---
+layout: author
+title: Jane Smith
+author_slug: jane-smith
+permalink: /author/jane-smith/
+---
+```
+
+The profile page automatically lists all posts with `author: jane-smith`.
+
+### Per-post author
+
+Set `author:` in post front matter using the slug:
+
+```yaml
+author: jane-smith
+```
+
+Falls back to `site.author` (defined in `_config.yml`) if not set.
+
+### Co-authored posts
+
+Pass an array of slugs:
+
+```yaml
+author: [paul-hobson, jane-smith]
+```
+
+Both names render as links in the byline and author card. Both authors' profile pages will include the post.
+
+### Author photo
+
+Place at the path set in `_data/authors.yml` under `image:`. Recommended: 400 × 400 px, square crop, JPEG.
+
+```
+assets/images/authors/jane-smith.jpg
+```
+
+If no image is set (or the key is empty), a placeholder avatar SVG is shown.
+
+---
+
+## 22. Drafts workflow
+
+Drafts live in `_drafts/` and are excluded from the production build. They are committed to git for version control and backup.
+
+### Creating a draft
+
+```bash
+npm run new -- "My Post Title"
+```
+
+Creates `_drafts/my-post-title.md` with a complete front matter template. The filename is auto-slugified from the title.
+
+### Previewing drafts locally
+
+```bash
+npm run preview
+```
+
+Runs `bundle exec jekyll serve --drafts` — drafts are rendered as if they were published posts, using today's date as their date.
+
+### Publishing a draft
+
+```bash
+npm run publish -- my-post-title.md
+```
+
+Moves `_drafts/my-post-title.md` to `_posts/YYYY-MM-DD-my-post-title.md` using today's date. The post is then included in the next build.
+
+### Listing available drafts
+
+```bash
+npm run publish
+```
+
+Running without an argument prints the list of available draft filenames.
+
+### Workflow summary
+
+```
+npm run new -- "Draft title"     # create
+npm run preview                  # review locally
+# edit _drafts/draft-title.md
+npm run publish -- draft-title.md   # ship it
+git add _posts/ && git commit ...   # commit and push
+```
+
+---
+
 ## Appendix: front matter quick reference
 
 ```yaml
@@ -1349,6 +1538,12 @@ d3: true
 leaflet: true
 geo: true
 story: true                    # Essay only — enables scrollytelling
+
+# ── Gallery (see §20) ───────────────────────────────────────────────────────────
+gallery:
+  - src: /assets/images/posts/photo.jpg
+    alt: "Alt text"
+    caption: "Optional caption"  # shown in lightbox
 ---
 ```
 
