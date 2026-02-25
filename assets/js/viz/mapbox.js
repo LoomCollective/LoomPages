@@ -7,20 +7,37 @@
  * Declarative usage in posts:
  *   <div data-map="calgary" style="height:500px;"></div>
  *   <div data-map="custom" data-center="-113.5,51.0" data-zoom="10" style="height:400px;"></div>
+ *   <div data-map="custom" data-center="7.82,45.97" data-zoom="13"
+ *        data-pitch="55" data-bearing="170"
+ *        data-terrain="1.5"
+ *        data-style="mapbox://styles/mapbox/satellite-streets-v12"
+ *        style="height:500px;"></div>
  *
  * Access token (in order of precedence):
  *   1. data-token attribute on the element
  *   2. window.MAPBOX_TOKEN (injected by head.html from site.mapbox_token in _config.yml)
+ *
+ * 3D terrain:
+ *   data-terrain        — enable terrain with default exaggeration (1.5)
+ *   data-terrain="2.0"  — enable terrain with custom exaggeration
+ *   Adds Mapbox DEM source, setTerrain(), and an atmosphere sky layer.
+ *   Best combined with data-pitch > 0 and satellite-streets-v12 or outdoors-v12.
  */
 
 // ── Preset locations ──────────────────────────────────────────────────────────
 
 const PRESETS = {
-  calgary:   { center: [-114.0719, 51.0447], zoom: 11 },
-  edmonton:  { center: [-113.4938, 53.5461], zoom: 11 },
-  vancouver: { center: [-123.1207, 49.2827], zoom: 11 },
-  toronto:   { center:  [-79.3832, 43.6532], zoom: 11 },
-  world:     { center: [0, 20],              zoom: 1.5 },
+  calgary:    { center: [-114.0719,  51.0447], zoom: 11 },
+  edmonton:   { center: [-113.4938,  53.5461], zoom: 11 },
+  vancouver:  { center: [-123.1207,  49.2827], zoom: 11 },
+  toronto:    { center: [ -79.3832,  43.6532], zoom: 11 },
+  world:      { center: [   0,       20     ], zoom:  1.5 },
+  zermatt:    { center: [   7.7491,  46.0207], zoom: 13 },
+  findelen:   { center: [   7.840,   46.012 ], zoom: 13 },
+  gorner:     { center: [   7.820,   45.970 ], zoom: 12 },
+  chamonix:   { center: [   6.869,   45.924 ], zoom: 12 },
+  peyto:      { center: [-116.530,   51.715 ], zoom: 13 },
+  athabasca:  { center: [-117.245,   52.190 ], zoom: 12 },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -53,7 +70,7 @@ function showError(el, message) {
  *   4. Fallback defaults
  *
  * @param {HTMLElement} el
- * @param {object} config  Optional overrides: { center, zoom, style }
+ * @param {object} config  Optional overrides: { center, zoom, pitch, bearing, style }
  * @returns {object|null}  Mapbox Map instance or null on failure
  */
 export function renderMap(el, config = {}) {
@@ -93,10 +110,20 @@ export function renderMap(el, config = {}) {
     [0, 0];
 
   const zoom =
-    (el.dataset.zoom ? parseFloat(el.dataset.zoom) : null) ??
-    config.zoom ??
-    preset.zoom ??
+    (el.dataset.zoom    ? parseFloat(el.dataset.zoom)    : null) ??
+    config.zoom    ??
+    preset.zoom    ??
     2;
+
+  const pitch =
+    (el.dataset.pitch   ? parseFloat(el.dataset.pitch)   : null) ??
+    config.pitch   ??
+    0;
+
+  const bearing =
+    (el.dataset.bearing ? parseFloat(el.dataset.bearing) : null) ??
+    config.bearing ??
+    0;
 
   const style =
     el.dataset.style ??
@@ -105,10 +132,33 @@ export function renderMap(el, config = {}) {
 
   let map;
   try {
-    map = new mapboxgl.Map({ container: el, style, center, zoom });
+    map = new mapboxgl.Map({ container: el, style, center, zoom, pitch, bearing });
   } catch (err) {
     showError(el, 'Map failed to initialise. Check the browser console for details.');
     return null;
+  }
+
+  // 3D terrain — enabled by data-terrain (presence) or data-terrain="1.5" (exaggeration)
+  if (el.dataset.terrain !== undefined) {
+    const exaggeration = parseFloat(el.dataset.terrain) || 1.5;
+    map.on('load', () => {
+      map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        tileSize: 512,
+        maxzoom: 14,
+      });
+      map.setTerrain({ source: 'mapbox-dem', exaggeration });
+      map.addLayer({
+        id: 'sky',
+        type: 'sky',
+        paint: {
+          'sky-type': 'atmosphere',
+          'sky-atmosphere-sun': [0.0, 90.0],
+          'sky-atmosphere-sun-intensity': 15,
+        },
+      });
+    });
   }
 
   // Keep map sized correctly when the container resizes
@@ -124,17 +174,21 @@ export function renderMap(el, config = {}) {
  * Called by core.js when a story step with data-update targets this element.
  *
  * @param {HTMLElement}  el
- * @param {object}       data      Keys: center ([lng,lat]), zoom, animate (default true)
+ * @param {object}       data      Keys: center ([lng,lat]), zoom, pitch, bearing, animate (default true)
  * @param {object}       instance  Mapbox Map instance returned by renderMap()
  */
 export function updateMap(el, data, instance) {
   if (!instance) return;
-  const { center, zoom, animate = true } = data;
+  const { center, zoom, pitch, bearing, animate = true } = data;
   const duration = animate ? 1500 : 0;
 
-  if (center) {
-    instance.flyTo({ center, zoom: zoom ?? instance.getZoom(), duration });
-  } else if (zoom != null) {
-    instance.flyTo({ zoom, duration });
+  const flyOptions = { duration };
+  if (center       != null) flyOptions.center  = center;
+  if (zoom         != null) flyOptions.zoom     = zoom;
+  if (pitch        != null) flyOptions.pitch    = pitch;
+  if (bearing      != null) flyOptions.bearing  = bearing;
+
+  if (Object.keys(flyOptions).length > 1) {
+    instance.flyTo(flyOptions);
   }
 }
