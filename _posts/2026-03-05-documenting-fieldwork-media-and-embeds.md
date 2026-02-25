@@ -126,12 +126,12 @@ The `embed` include wraps any YouTube or Vimeo URL in a responsive 16:9 containe
 
 ```liquid
 {% raw %}{% include embed.html
-   url="https://www.youtube.com/watch?v=RuRMgClkiNk"
+   url="https://www.youtube.com/embed/x1SgmFa0r04?si=mCkXoLDafmHUzAMk"
    caption="NASA Scientific Visualization: a year of Earth's CO₂ flux." %}{% endraw %}
 ```
 
 {% include embed.html
-   url="https://www.youtube.com/watch?v=RuRMgClkiNk"
+   url="https://www.youtube.com/embed/x1SgmFa0r04?si=mCkXoLDafmHUzAMk"
    caption="NASA Scientific Visualization Studio: a year of Earth's CO₂ flux. Public domain." %}
 
 Vimeo works identically:

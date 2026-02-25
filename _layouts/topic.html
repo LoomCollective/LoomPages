@@ -8,7 +8,7 @@ layout: default
   <div class="listing-header-inner">
     <div class="listing-label">Topic</div>
     <h1 class="listing-title">{{ page.title }}</h1>
-    <div class="listing-meta">{{ page.posts.size }} {{ page.posts.size | pluralize: "article", "articles" }}</div>
+    <div class="listing-meta">{{ page.posts.size }} {% if page.posts.size == 1 %}article{% else %}articles{% endif %}</div>
   </div>
 </header>
 
