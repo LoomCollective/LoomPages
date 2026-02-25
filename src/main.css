@@ -1180,4 +1180,58 @@ footer {
   margin: 0 0 32px;
   line-height: 1.6;
 }
+
+/* ── Ricker widget ─────────────────────────────────────────────────────────── */
+
+.ricker-widget {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ricker-controls {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 8px 0 12px;
+}
+
+.ricker-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  min-width: 160px;
+}
+
+.ricker-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ricker-slider-row input[type="range"] {
+  flex: 1;
+}
+
+.ricker-slider-row strong {
+  min-width: 2.8ch;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.ricker-charts {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  min-height: 0;
+}
+
+.ricker-timeseries,
+.ricker-phase {
+  min-height: 0;
+}
 .error-actions { display: flex; gap: 12px; justify-content: center; }
