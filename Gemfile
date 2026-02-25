@@ -6,4 +6,5 @@ gem "jekyll-archives"
 gem "jekyll-seo-tag"
 gem "jekyll-feed"
 gem "jekyll-sitemap"
+gem "jekyll-last-modified-at"
 gem "webrick"  # needed for Ruby 3+

@@ -30,9 +30,10 @@ layout: default
         <time class="post-meta-date" datetime="{{ page.date | date: '%Y-%m-%d' }}">
           {{ page.date | date: "%-d %b %Y" }}
         </time>
-        {% if page.updated %}
+        {% assign _updated = page.updated | default: page.last_modified_at %}
+        {% if _updated %}
         <span class="post-meta-divider" aria-hidden="true">·</span>
-        <span class="post-meta-updated">Updated <time datetime="{{ page.updated | date: '%Y-%m-%d' }}">{{ page.updated | date: "%-d %b %Y" }}</time></span>
+        <span class="post-meta-updated">Updated <time datetime="{{ _updated | date: '%Y-%m-%d' }}">{{ _updated | date: "%-d %b %Y" }}</time></span>
         {% endif %}
         <span class="post-meta-divider" aria-hidden="true">·</span>
         <span class="post-meta-reading-time">{{ page.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
