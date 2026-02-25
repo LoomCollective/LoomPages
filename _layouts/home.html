@@ -79,49 +79,7 @@ layout: default
 
     <div class="featured-grid">
       {% for post in featured_posts %}
-
-      {% if forloop.first %}
-      <!-- First card: large hero card -->
-      <article class="post-card featured-main">
-        {% if post.image %}
-        <a href="{{ post.url | relative_url }}" class="card-image" tabindex="-1" aria-hidden="true">
-          <img src="{{ post.image }}" alt="{{ post.image_alt | default: '' }}" loading="eager" width="1000" height="750">
-        </a>
-        {% else %}
-        <div class="card-image card-image--no-feature"></div>
-        {% endif %}
-        <div class="card-body">
-          {% if post.categories.first %}
-          <a href="{{ '/topic/' | append: post.categories.first | downcase | replace: ' ', '-' | relative_url }}/" class="card-tag">{{ post.categories.first }}</a>
-          {% endif %}
-          <h3 class="card-title">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h3>
-          {% if post.excerpt %}
-          <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
-          {% endif %}
-          <div class="card-meta">
-            {% assign _feat_author_slug = post.author | default: site.author %}
-            {% assign _feat_author_data = site.data.authors[_feat_author_slug] %}
-            {% if _feat_author_data.image %}
-            <img src="{{ _feat_author_data.image | relative_url }}" alt="{{ _feat_author_data.name }}" class="card-avatar" width="24" height="24" loading="lazy" style="border-radius:50%;object-fit:cover;">
-            {% else %}
-            <div class="card-avatar card-avatar--initials" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
-            </div>
-            {% endif %}
-            <div class="card-meta-info">
-              <span class="card-author">{% include author-byline.html author=_feat_author_slug %}</span>
-              <span class="card-date">{{ post.date | date: "%-d %b %Y" }} · {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      {% else %}
       {% include post-card.html post=post %}
-      {% endif %}
-
       {% endfor %}
     </div><!-- /.featured-grid -->
 

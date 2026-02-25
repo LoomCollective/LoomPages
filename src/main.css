@@ -640,14 +640,10 @@ footer {
 }
 .featured-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
-.featured-main {
-  grid-row: span 2;
-}
-@media (max-width: 768px) { .featured-grid { grid-template-columns: 1fr; } .featured-main { grid-row: span 1; } }
+@media (max-width: 640px) { .featured-grid { grid-template-columns: 1fr; } }
 
 /* Topics scroll */
 .topics-section {
