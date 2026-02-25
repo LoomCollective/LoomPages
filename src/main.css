@@ -871,7 +871,18 @@ footer {
 .kg-width-full img { width: 100vw; margin-left: 50%; transform: translateX(-50%); }
 .kg-callout-card { display: flex; gap: 14px; padding: 16px 20px; border-radius: 8px; background: var(--bg2); border: 1px solid var(--border); margin: 24px 0; }
 .kg-callout-card-text { font-size: 0.9375rem; }
-.kg-video-card video { width: 100%; border-radius: 8px; }
+/* Video — native HTML5 */
+.video-figure { margin: 2rem 0; }
+.video-wrap { aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: #000; }
+.video-wrap video { width: 100%; height: 100%; display: block; }
+
+/* Embed — YouTube / Vimeo */
+.video-embed { margin: 2rem 0; }
+.video-embed-wrap { aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; }
+.video-embed-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* Shared caption */
+.video-caption { font-size: 0.85rem; color: var(--text-2); margin-top: 8px; text-align: center; }
 .kg-bookmark-card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .kg-bookmark-container { display: flex; text-decoration: none; color: var(--text); }
 .kg-bookmark-content { flex: 1; padding: 16px; }

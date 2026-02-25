@@ -23,6 +23,8 @@ A complete reference for building, configuring, and writing content for the Loom
 15. [Images](#15-images)
 16. [Custom domain](#16-custom-domain)
 17. [GitHub Actions deployment](#17-github-actions-deployment)
+18. [Video embeds](#18-video-embeds)
+19. [Presentations](#19-presentations)
 
 ---
 
@@ -1178,6 +1180,137 @@ And inject into the page via a Jekyll variable in `_includes/head.html`.
 ### Caching
 
 npm and Bundler caches are both enabled — `cache: "npm"` on the Node setup step and `bundler-cache: true` on the Ruby setup step. A typical build after the first run takes about 60–90 seconds.
+
+---
+
+## 18. Video embeds
+
+Two includes handle video content: `video.html` for self-hosted files and `embed.html` for YouTube/Vimeo.
+
+### Native HTML5 video — `_includes/video.html`
+
+```liquid
+{% include video.html src="/assets/video/demo.mp4" caption="Optional caption" %}
+```
+
+**Parameters:**
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `src` | Yes | Path to the video file (passed through `relative_url`) |
+| `poster` | No | Path to a poster image shown before playback |
+| `caption` | No | Caption text displayed below the video |
+| `type` | No | MIME type — defaults to `video/mp4` |
+| `loop` | No | Add `loop` to repeat the video continuously |
+| `autoplay` | No | Add `autoplay` to start on load (forces `muted`) |
+
+`playsinline` is always set (required for iOS inline playback). `preload="metadata"` loads only the first frame and duration, avoiding unnecessary bandwidth on page load. When `autoplay` is set, `muted` is automatically added — browsers block audible autoplay.
+
+### YouTube / Vimeo embed — `_includes/embed.html`
+
+```liquid
+{% include embed.html url="https://youtu.be/dQw4w9WgXcQ" caption="Optional caption" %}
+{% include embed.html url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="Video title" %}
+{% include embed.html url="https://vimeo.com/123456789" caption="Vimeo example" %}
+```
+
+**Supported URL forms:**
+- `https://youtu.be/VIDEO_ID`
+- `https://www.youtube.com/watch?v=VIDEO_ID` (extra query params are stripped)
+- `https://vimeo.com/VIDEO_ID`
+
+**Parameters:**
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `url` | Yes | Full video URL in any supported form |
+| `title` | No | `title` attribute on the iframe (defaults to `Video embed`) |
+| `caption` | No | Caption text displayed below the embed |
+
+**Privacy note:** YouTube URLs are rewritten to `youtube-nocookie.com`. No cookies are set until the user presses play. Vimeo uses the standard player embed.
+
+Both includes render in a `16:9` aspect-ratio wrapper with `border-radius` matching the site's `--radius` token. The CSS lives in `src/main.css`.
+
+---
+
+## 19. Presentations
+
+The `presentation` layout renders a full-screen [Reveal.js](https://revealjs.com/) slideshow without the normal site header or footer.
+
+### Front matter
+
+```yaml
+---
+layout: presentation
+title: "Presentation Title"
+date: 2026-02-28
+excerpt: "One-sentence description shown in meta tags."
+---
+```
+
+### Slide syntax
+
+Separate slides with `---` (a horizontal rule in Markdown, rendered as `<hr>` by kramdown). The layout splits the rendered HTML at every `<hr>` into individual `<section>` elements.
+
+```markdown
+---
+layout: presentation
+title: "My Talk"
+date: 2026-02-28
+---
+
+# Slide one title
+Some content.
+
+---
+
+## Slide two
+
+- Bullet point
+- Another bullet
+
+---
+
+## Code example
+
+```javascript
+const x = 1 + 1;
+```
+```
+
+### Speaker notes
+
+Add an `<aside class="notes">` element inside a slide. Notes appear only in the S-key speaker window:
+
+```markdown
+## My slide
+
+Content visible to the audience.
+
+<aside class="notes">
+  These notes only appear in the speaker view (press S).
+</aside>
+```
+
+### Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| `→` / `Space` | Next slide |
+| `←` | Previous slide |
+| `F` | Fullscreen |
+| `S` | Open speaker notes window |
+| `O` | Slide overview |
+| `B` | Blackout screen |
+| `Esc` | Exit overview / fullscreen |
+
+### Dark mode
+
+The presentation reads `localStorage` for the `loom-dark` key (the same key used by the rest of the site). If dark mode is active, the Reveal.js `black.css` base theme is loaded instead of `white.css`. The theme swap happens before `Reveal.initialize()` to prevent a flash of the wrong theme.
+
+### Styling
+
+Override CSS lives in `assets/css/presentation.css` (a static file, not Vite-built — the same pattern as `assets/css/essay.css`). It uses Loom's fonts (Instrument Serif, DM Sans, JetBrains Mono) and accent colour (`#F0177A`). The back-to-site link in the top-left is styled via `.presentation-back`.
 
 ---
 
