@@ -89,4 +89,35 @@ Alpine.data('search', () => ({
   },
 }));
 
+// ── Photo gallery lightbox ──────────────────────────────────────────────────
+// Used by _includes/gallery.html. Images are passed via x-init from Liquid JSON.
+
+Alpine.data('gallery', () => ({
+  active: false,
+  idx: 0,
+  images: [],
+
+  init() {
+    window.addEventListener('keydown', (e) => {
+      if (!this.active) return;
+      if (e.key === 'Escape')     { this.close(); return; }
+      if (e.key === 'ArrowLeft')  { this.prev();  return; }
+      if (e.key === 'ArrowRight') { this.next();  return; }
+    });
+  },
+
+  open(idx) {
+    this.idx = idx;
+    this.active = true;
+    this.$nextTick(() => this.$refs.close?.focus());
+  },
+
+  close() {
+    this.active = false;
+  },
+
+  prev() { if (this.idx > 0) this.idx--; },
+  next() { if (this.idx < this.images.length - 1) this.idx++; },
+}));
+
 Alpine.start();
