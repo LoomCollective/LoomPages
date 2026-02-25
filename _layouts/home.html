@@ -44,11 +44,17 @@ layout: default
           <p class="card-excerpt">{{ _hero.excerpt | strip_html | truncatewords: 20 }}</p>
           {% endif %}
           <div class="card-meta">
+            {% assign _hero_author_slug = _hero.author | default: site.author %}
+            {% assign _hero_author_data = site.data.authors[_hero_author_slug] %}
+            {% if _hero_author_data.image %}
+            <img src="{{ _hero_author_data.image | relative_url }}" alt="{{ _hero_author_data.name }}" class="card-avatar" width="24" height="24" loading="eager" style="border-radius:50%;object-fit:cover;">
+            {% else %}
             <div class="card-avatar card-avatar--initials">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
             </div>
+            {% endif %}
             <div class="card-meta-info">
-              <span class="card-author">{{ _hero.author | default: site.author }}</span>
+              <span class="card-author">{{ _hero_author_data.name | default: _hero_author_slug }}</span>
               <span class="card-date">{{ _hero.date | date: "%-d %b %Y" }}</span>
             </div>
           </div>
@@ -95,11 +101,17 @@ layout: default
           <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
           {% endif %}
           <div class="card-meta">
+            {% assign _feat_author_slug = post.author | default: site.author %}
+            {% assign _feat_author_data = site.data.authors[_feat_author_slug] %}
+            {% if _feat_author_data.image %}
+            <img src="{{ _feat_author_data.image | relative_url }}" alt="{{ _feat_author_data.name }}" class="card-avatar" width="24" height="24" loading="lazy" style="border-radius:50%;object-fit:cover;">
+            {% else %}
             <div class="card-avatar card-avatar--initials" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
             </div>
+            {% endif %}
             <div class="card-meta-info">
-              <span class="card-author">{{ post.author | default: site.author }}</span>
+              <span class="card-author">{% include author-byline.html author=_feat_author_slug %}</span>
               <span class="card-date">{{ post.date | date: "%-d %b %Y" }} · {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
             </div>
           </div>

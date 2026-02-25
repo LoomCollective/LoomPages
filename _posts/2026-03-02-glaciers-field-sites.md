@@ -2,6 +2,7 @@
 layout: essay
 title: "Glaciers I Have Known"
 date: 2026-03-02
+author: paul-hobson
 excerpt: "A scroll-driven terrain tour of five glacier field sites across the Swiss Alps and Canadian Rockies — Findelen, Gorner, Mer de Glace, Peyto, and the Columbia Icefield."
 categories: [science]
 tags: [glaciology, mapbox, terrain, scrollytelling, alps, rockies, fieldwork]

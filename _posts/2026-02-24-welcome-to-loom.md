@@ -2,6 +2,7 @@
 layout: post
 title: "What Loom Is and How It Works"
 date: 2026-02-24
+author: paul-hobson
 excerpt: "A fast Jekyll site with dark mode, computational essays, and a full visualisation runtime — what's in the stack and why each piece is here."
 categories: [meta]
 tags: [jekyll, design, architecture]

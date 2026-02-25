@@ -2,6 +2,7 @@
 layout: essay
 title: "The Ricker Model: Population Dynamics Through a Single Equation"
 date: 2026-02-24
+author: paul-hobson
 excerpt: "How a deceptively simple recurrence relation explains boom-bust cycles in fish populations — and what it reveals about chaos."
 categories: [ecology]
 tags: [population-dynamics, ricker, chaos, mathematics]

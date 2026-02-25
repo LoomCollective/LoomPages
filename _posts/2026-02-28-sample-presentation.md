@@ -2,6 +2,7 @@
 layout: presentation
 title: "Introducing Loom"
 date: 2026-02-28
+author: paul-hobson
 excerpt: "A walkthrough of the Loom stack and its capabilities."
 categories: [meta]
 tags: [jekyll, design, architecture, presentations]

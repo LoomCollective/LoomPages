@@ -2,6 +2,7 @@
 layout: essay
 title: "Scrollytelling with Maps and Charts"
 date: 2026-02-27
+author: paul-hobson
 excerpt: "How to build scroll-driven stories that update Leaflet maps and D3 charts as the reader scrolls through the narrative."
 categories: [meta]
 tags: [scrollama, leaflet, d3, scrollytelling, maps, how-to]

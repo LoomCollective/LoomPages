@@ -21,10 +21,16 @@ layout: default
 
       <div class="post-meta">
         <span class="post-meta-author" style="display:flex;align-items:center;gap:8px;">
+          {% assign _post_author_slug = page.author | default: site.author %}
+          {% assign _post_author_data = site.data.authors[_post_author_slug] %}
+          {% if _post_author_data.image %}
+          <img src="{{ _post_author_data.image | relative_url }}" alt="{{ _post_author_data.name }}" class="post-meta-avatar" width="40" height="40">
+          {% else %}
           <div class="post-meta-avatar post-meta-avatar--placeholder" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
           </div>
-          <span class="post-meta-name">{{ page.author | default: site.author }}</span>
+          {% endif %}
+          <span class="post-meta-name">{% include author-byline.html author=_post_author_slug %}</span>
         </span>
         <span class="post-meta-divider" aria-hidden="true">·</span>
         <time class="post-meta-date" datetime="{{ page.date | date: '%Y-%m-%d' }}">
@@ -66,6 +72,7 @@ layout: default
     </section>
   </div><!-- /.post-content-wrap -->
 
+  {% include author-card.html author=_post_author_slug %}
   {% include subscribe-cta.html %}
   {% include giscus.html %}
   {% include related-posts.html %}

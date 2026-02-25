@@ -2,6 +2,7 @@
 layout: essay
 title: "Interactive Maps with Mapbox GL JS"
 date: 2026-03-01
+author: paul-hobson
 excerpt: "Full-featured vector maps with custom styles, scroll-driven flyTo transitions, and automatic dark mode switching — using the Mapbox GL JS adapter."
 categories: [meta]
 tags: [mapbox, maps, scrollytelling, how-to, geo]

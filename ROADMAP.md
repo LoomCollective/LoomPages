@@ -76,7 +76,7 @@ These are strategic rather than immediate. Worth knowing they exist before makin
 |---|------|-------|
 | ~~L1~~ | ~~**Custom domain**~~ | ✅ Done — `CNAME` file set to `loomcollective.ai`, `url` + `baseurl` updated in `_config.yml` |
 | L2 | **Quarto integration for computational content** | See architecture note below. |
-| L3 | **Multi-author support** | `_data/authors.yml` + `author:` front matter + author profile pages. Needed if anyone else ever contributes. Easy to add later, hard to retrofit URLs if you wait too long. |
+| ~~L3~~ | ~~**Multi-author support**~~ | ✅ Done — `_data/authors.yml`, `_includes/author-byline.html`, `_includes/author-card.html`, `_layouts/author.html`, `_pages/authors/paul-hobson.md`. All 5 display locations updated. `site.author` now a slug. |
 | L4 | **Post drafts workflow** | A `_drafts/` folder with a Makefile or npm script that publishes (renames with date prefix) and pushes. Removes friction from the publish step. |
 | L5 | **Webmentions** | [webmention.io](https://webmention.io) + [Bridgy](https://brid.gy) pipes replies from Twitter/Mastodon back to your posts. Niche but fits the open-web ethos of the content style. |
 | L6 | **Algolia or Meilisearch** | If the site grows past ~500 posts, Pagefind's client-side index becomes unwieldy. Worth knowing the upgrade path exists. |

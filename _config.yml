@@ -3,7 +3,7 @@ description: Clean typography, dark mode, computational essays.
 # url: "https://loomcollective.ai"
 # url: "https://loomcollective.github.io"
 baseurl: ""
-author: Paul Hobson
+author: paul-hobson
 lang: en
 
 permalink: /:title/

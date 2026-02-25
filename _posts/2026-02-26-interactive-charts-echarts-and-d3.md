@@ -2,6 +2,7 @@
 layout: post
 title: "Interactive Charts with ECharts and D3"
 date: 2026-02-26
+author: paul-hobson
 excerpt: "Embedding interactive data visualisations using Apache ECharts and D3 — declarative markup, no JavaScript required in the post."
 categories: [meta]
 tags: [echarts, d3, charts, data-visualization, how-to]

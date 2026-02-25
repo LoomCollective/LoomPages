@@ -30,7 +30,8 @@
     <div class="essay-meta">
       <div class="essay-authors">
         <span class="essay-author">
-          <span class="essay-author-name">{{ page.author | default: site.author }}</span>
+          {% assign _essay_author_slug = page.author | default: site.author %}
+          {% include author-byline.html author=_essay_author_slug %}
         </span>
       </div>
       <div class="essay-meta-secondary">

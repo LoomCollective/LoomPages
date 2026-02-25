@@ -2,6 +2,7 @@
 layout: post
 title: "Rendering Mathematics and Diagrams"
 date: 2026-02-25
+author: paul-hobson
 excerpt: "How to embed KaTeX equations and Mermaid diagrams in posts — auto-detected, no configuration required."
 categories: [meta]
 tags: [katex, mermaid, mathematics, visualization, how-to]
