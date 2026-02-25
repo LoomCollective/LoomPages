@@ -17,6 +17,10 @@ facebook: ""
 # Leave empty to disable. To swap providers later, replace this block with your new snippet.
 analytics_token: ""
 
+# Mapbox GL JS — paste your public token (pk.eyJ...) here.
+# Keep secret tokens in GitHub Actions secrets instead (see HOWTO.md §17).
+mapbox_token: "pk.eyJ1IjoiYnJlYWRlZGNvZCIsImEiOiJjbW0xa25qc2EwMmtwMnJwejJlNndqdnoxIn0._7I9PwXuFLrOQINVZ84y1w"
+
 # Giscus comments — get values from https://giscus.app after enabling GitHub Discussions on the repo
 # Add `comments: true` to any post's front matter to show the comment widget.
 giscus:

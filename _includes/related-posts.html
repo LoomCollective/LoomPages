@@ -47,7 +47,7 @@
       {% if post.image %}
       <div class="related-post-img" style="background-image:url('{{ post.image | relative_url }}')"></div>
       {% else %}
-      <div class="related-post-img mock-img" aria-hidden="true"></div>
+      <div class="related-post-img" aria-hidden="true"></div>
       {% endif %}
       <div class="related-post-body">
         {% if post.categories.first %}

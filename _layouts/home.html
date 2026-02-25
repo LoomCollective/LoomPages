@@ -7,9 +7,10 @@ layout: default
   <div class="hero">
 
     <div class="hero-content">
-      <div class="hero-tag">
-        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true"><circle cx="4" cy="4" r="4"/></svg>
-        {{ site.hero_badge | default: "Latest articles" }}
+      <div class="hero-topics">
+        {% for category in site.categories limit: 5 %}
+        <a href="{{ '/topic/' | append: category[0] | downcase | replace: ' ', '-' | relative_url }}/" class="topic-chip">{{ category[0] }}</a>
+        {% endfor %}
       </div>
 
       <h1 class="hero-headline">

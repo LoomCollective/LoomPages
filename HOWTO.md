@@ -747,13 +747,15 @@ Dark mode automatically swaps the tile layer to `carto-dark`.
 **Front matter flag:** `geo: true`
 **Auto-detection:** `[data-map]` elements.
 
-**Token setup** — add to `_includes/head.html` or `_config.yml` via a custom include:
+**Token setup** — add your public token to `_config.yml`:
 
-```html
-<script>window.MAPBOX_TOKEN = 'pk.eyJ...';</script>
+```yaml
+mapbox_token: "pk.eyJ..."
 ```
 
-Or pass per-element:
+This is injected as `window.MAPBOX_TOKEN` automatically by `_includes/head.html` on every page. For a token you don't want in source control, use a GitHub Actions secret instead (see §17).
+
+Or pass per-element to override the global token:
 
 ```html
 <div data-map="calgary" data-token="pk.eyJ..." style="height:500px;"></div>

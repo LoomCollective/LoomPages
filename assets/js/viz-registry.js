@@ -33,7 +33,7 @@
 import { initMath }                          from './viz/math.js';
 import { initDiagrams }                      from './viz/diagrams.js';
 import { renderEChart, updateEChart }        from './viz/echarts.js';
-import { renderMap }                         from './viz/mapbox.js';
+import { renderMap, updateMap }              from './viz/mapbox.js';
 import { renderLeaflet, updateLeaflet }      from './viz/leaflet.js';
 import { renderD3, updateD3 }                from './viz/d3.js';
 import { renderRicker, renderRickerScrolly } from './models/ricker.js';
@@ -202,7 +202,7 @@ export const REGISTRY = [
     init:     null,
     selector: '[data-map]',
     render:   (el) => renderMap(el, {}),
-    update:   null,
+    update:   (el, data, instance) => updateMap(el, data, instance),
   },
 
 ];

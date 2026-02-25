@@ -1,15 +1,16 @@
 /**
  * mapbox.js — Mapbox GL JS wrapper
  *
- * Requires mapbox-gl.js and mapbox-gl.css to be loaded from the Mapbox CDN
- * (added by default.hbs when the post carries tag "geo").
+ * Requires mapbox-gl.js and mapbox-gl.css (loaded from Mapbox CDN by the viz
+ * registry when a page has geo: true front matter or a [data-map] element).
  *
  * Declarative usage in posts:
  *   <div data-map="calgary" style="height:500px;"></div>
  *   <div data-map="custom" data-center="-113.5,51.0" data-zoom="10" style="height:400px;"></div>
  *
- * Access token: set window.MAPBOX_TOKEN before this module loads, or pass
- * data-token on the element, or set it via Ghost Code Injection.
+ * Access token (in order of precedence):
+ *   1. data-token attribute on the element
+ *   2. window.MAPBOX_TOKEN (injected by head.html from site.mapbox_token in _config.yml)
  */
 
 // ── Preset locations ──────────────────────────────────────────────────────────
@@ -74,7 +75,7 @@ export function renderMap(el, config = {}) {
     showError(
       el,
       'Map unavailable: no Mapbox access token found.<br>' +
-      'Set <code>window.MAPBOX_TOKEN</code> in Ghost → Settings → Code Injection.'
+      'Set <code>mapbox_token:</code> in <code>_config.yml</code>.'
     );
     return null;
   }
@@ -116,4 +117,25 @@ export function renderMap(el, config = {}) {
   observer.observe(el);
 
   return map;
+}
+
+/**
+ * Update a Mapbox map instance in response to a scroll step.
+ *
+ * Called by core.js when a story step with data-update targets this element.
+ *
+ * @param {HTMLElement}  el
+ * @param {object}       data      Keys: center ([lng,lat]), zoom, animate (default true)
+ * @param {object}       instance  Mapbox Map instance returned by renderMap()
+ */
+export function updateMap(el, data, instance) {
+  if (!instance) return;
+  const { center, zoom, animate = true } = data;
+  const duration = animate ? 1500 : 0;
+
+  if (center) {
+    instance.flyTo({ center, zoom: zoom ?? instance.getZoom(), duration });
+  } else if (zoom != null) {
+    instance.flyTo({ zoom, duration });
+  }
 }

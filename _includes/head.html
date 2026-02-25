@@ -17,6 +17,12 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://esm.sh">
+<link rel="preconnect" href="https://api.mapbox.com">
+<link rel="preconnect" href="https://events.mapbox.com">
+
+{% if site.mapbox_token and site.mapbox_token != "" %}
+<script>window.MAPBOX_TOKEN = '{{ site.mapbox_token }}';</script>
+{% endif %}
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
