@@ -570,17 +570,6 @@ footer {
   align-items: center;
 }
 
-.hero-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-.hero-topics .topic-chip {
-  font-size: 0.8125rem;
-  padding: 5px 14px;
-}
-
 .hero-headline {
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: clamp(2.5rem, 5vw, 3.75rem);
@@ -598,13 +587,58 @@ footer {
   margin: 0 0 32px;
 }
 
-/* Hero visual — live preview card */
-.hero-visual { position: relative; pointer-events: none; }
+.hero-cta-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.hero-cta-btn:hover { opacity: 0.85; }
+
+/* Hero visual — clickable latest post card */
+.hero-visual { position: relative; }
+
+.hero-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+.hero-card-link:hover .hero-card-preview,
+.hero-card-link:focus-visible .hero-card-preview {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
 .hero-card-preview { box-shadow: var(--shadow); }
 
+.hero-card-latest-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.hero-read-cta {
+  display: block;
+  margin-top: 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
 @media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; gap: 0; }
-  .hero-visual { display: none; }
+  .hero { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { display: block; }
 }
 
 /* Sections */

@@ -5,14 +5,9 @@ layout: default
 <!-- HERO -->
 <section class="hero-section">
   <div class="hero">
+    {% assign _hero = site.posts.first %}
 
     <div class="hero-content">
-      <div class="hero-topics">
-        {% for category in site.categories limit: 5 %}
-        <a href="{{ '/topic/' | append: category[0] | downcase | replace: ' ', '-' | relative_url }}/" class="topic-chip">{{ category[0] }}</a>
-        {% endfor %}
-      </div>
-
       <h1 class="hero-headline">
         {{ site.hero_heading | default: site.title }}
       </h1>
@@ -20,48 +15,54 @@ layout: default
       <p class="hero-sub">
         {{ site.hero_subheading | default: site.description }}
       </p>
+
+      {% if _hero %}
+      <a href="{{ _hero.url | relative_url }}" class="hero-cta-btn">Start reading →</a>
+      {% endif %}
     </div><!-- /.hero-content -->
 
-    <!-- Live preview of the latest featured post -->
-    <div class="hero-visual" aria-hidden="true">
-      {% assign _hero = site.posts | where: "featured", true | first %}
-      {% unless _hero %}{% assign _hero = site.posts.first %}{% endunless %}
-      {% if _hero %}
-      <article class="post-card hero-card-preview">
-        {% if _hero.image %}
-        <div class="card-image">
-          <img src="{{ _hero.image }}" alt="" loading="eager">
-        </div>
-        {% else %}
-        <div class="card-image card-image--no-feature"></div>
-        {% endif %}
-        <div class="card-body">
-          {% if _hero.categories.first %}
-          <span class="card-tag">{{ _hero.categories.first }}</span>
-          {% endif %}
-          <h3 class="card-title">{{ _hero.title }}</h3>
-          {% if _hero.excerpt %}
-          <p class="card-excerpt">{{ _hero.excerpt | strip_html | truncatewords: 20 }}</p>
-          {% endif %}
-          <div class="card-meta">
-            {% assign _hero_author_slug = _hero.author | default: site.author %}
-            {% assign _hero_author_data = site.data.authors[_hero_author_slug] %}
-            {% if _hero_author_data.image %}
-            <img src="{{ _hero_author_data.image | relative_url }}" alt="{{ _hero_author_data.name }}" class="card-avatar" width="24" height="24" loading="eager" style="border-radius:50%;object-fit:cover;">
-            {% else %}
-            <div class="card-avatar card-avatar--initials">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
-            </div>
-            {% endif %}
-            <div class="card-meta-info">
-              <span class="card-author">{{ _hero_author_data.name | default: _hero_author_slug }}</span>
-              <span class="card-date">{{ _hero.date | date: "%-d %b %Y" }}</span>
-            </div>
+    <!-- Latest post — clickable preview card -->
+    {% if _hero %}
+    <div class="hero-visual">
+      <a href="{{ _hero.url | relative_url }}" class="hero-card-link" aria-label="Read: {{ _hero.title }}">
+        <article class="post-card hero-card-preview">
+          {% if _hero.image %}
+          <div class="card-image">
+            <img src="{{ _hero.image }}" alt="" loading="eager">
           </div>
-        </div>
-      </article>
-      {% endif %}
+          {% else %}
+          <div class="card-image card-image--no-feature"></div>
+          {% endif %}
+          <div class="card-body">
+            <span class="hero-card-latest-label">Latest</span>
+            {% if _hero.categories.first %}
+            <span class="card-tag">{{ _hero.categories.first }}</span>
+            {% endif %}
+            <h3 class="card-title">{{ _hero.title }}</h3>
+            {% if _hero.excerpt %}
+            <p class="card-excerpt">{{ _hero.excerpt | strip_html | truncatewords: 20 }}</p>
+            {% endif %}
+            <div class="card-meta">
+              {% assign _hero_author_slug = _hero.author | default: site.author %}
+              {% assign _hero_author_data = site.data.authors[_hero_author_slug] %}
+              {% if _hero_author_data.image %}
+              <img src="{{ _hero_author_data.image | relative_url }}" alt="{{ _hero_author_data.name }}" class="card-avatar" width="24" height="24" loading="eager" style="border-radius:50%;object-fit:cover;">
+              {% else %}
+              <div class="card-avatar card-avatar--initials">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
+              </div>
+              {% endif %}
+              <div class="card-meta-info">
+                <span class="card-author">{{ _hero_author_data.name | default: _hero_author_slug }}</span>
+                <span class="card-date">{{ _hero.date | date: "%-d %b %Y" }}</span>
+              </div>
+            </div>
+            <span class="hero-read-cta">Read now →</span>
+          </div>
+        </article>
+      </a>
     </div>
+    {% endif %}
 
   </div><!-- /.hero -->
 </section>
