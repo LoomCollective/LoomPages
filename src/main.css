@@ -7,6 +7,8 @@
    ============================================================================ */
 
 :root {
+  --font-body:     'DM Sans', system-ui, sans-serif;
+  --font-heading:  'Instrument Serif', Georgia, serif;
   --accent:        #F0177A;
   --accent-light:  #FFE5F2;
   --bg:            #FFFFFF;
@@ -44,7 +46,7 @@
    ============================================================================ */
 
 html {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -160,7 +162,7 @@ img {
 }
 
 .nav-logo {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   color: var(--text);
   text-decoration: none;
@@ -318,7 +320,7 @@ footer {
 }
 
 .footer-brand-logo {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   color: var(--text);
   margin-bottom: 12px;
@@ -472,7 +474,7 @@ footer {
 .card-tag:hover { color: var(--accent); opacity: 1; }
 
 .card-title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.35;
@@ -571,7 +573,7 @@ footer {
 }
 
 .hero-headline {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 3.75rem);
   font-weight: 400;
   line-height: 1.1;
@@ -649,7 +651,7 @@ footer {
   margin-bottom: 28px;
 }
 .section-title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--text);
@@ -766,7 +768,7 @@ footer {
 }
 
 .post-title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 400;
   line-height: 1.15;
@@ -842,8 +844,8 @@ footer {
   line-height: 1.75;
   color: var(--text);
 }
-.gh-content h2 { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.75rem; font-weight: 400; margin-top: 48px; margin-bottom: 16px; color: var(--text); letter-spacing: -0.02em; scroll-margin-top: 80px; }
-.gh-content h3 { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.375rem; font-weight: 400; margin-top: 36px; margin-bottom: 12px; color: var(--text); scroll-margin-top: 80px; }
+.gh-content h2 { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 400; margin-top: 48px; margin-bottom: 16px; color: var(--text); letter-spacing: -0.02em; scroll-margin-top: 80px; }
+.gh-content h3 { font-family: var(--font-heading); font-size: 1.375rem; font-weight: 400; margin-top: 36px; margin-bottom: 12px; color: var(--text); scroll-margin-top: 80px; }
 .gh-content h4 { font-size: 1.125rem; font-weight: 600; margin-top: 28px; margin-bottom: 10px; }
 .gh-content p  { margin-bottom: 1.5em; }
 .gh-content a  { color: var(--accent); border-bottom: 1px solid var(--accent-light); }
@@ -944,7 +946,7 @@ footer {
 .author-card-inner { display: flex; gap: 20px; align-items: flex-start; }
 .author-card-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .author-card-avatar--placeholder { background: var(--bg3); display: flex; align-items: center; justify-content: center; color: var(--text-3); }
-.author-card-name { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; color: var(--text); font-weight: 400; text-decoration: none; }
+.author-card-name { font-family: var(--font-heading); font-size: 1.25rem; color: var(--text); font-weight: 400; text-decoration: none; }
 .author-card-name:hover { color: var(--accent); opacity: 1; }
 .author-card-location { font-size: 0.8125rem; color: var(--text-3); margin-left: 8px; }
 .author-card-bio { font-size: 0.9375rem; color: var(--text-2); line-height: 1.6; margin: 8px 0 0; }
@@ -1200,7 +1202,7 @@ footer {
 .post-nav-item--next { text-align: right; }
 .post-nav-direction { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
 .post-nav-item--next .post-nav-direction { justify-content: flex-end; }
-.post-nav-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1rem; font-weight: 400; color: var(--text); }
+.post-nav-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 400; color: var(--text); }
 
 /* ============================================================================
    Listing pages (tag archive, all-posts archive, topics)
@@ -1241,7 +1243,7 @@ footer {
 }
 .listing-header--has-cover .listing-label { color: rgba(255,255,255,0.8); }
 .listing-title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 400;
   color: var(--text);
@@ -1283,7 +1285,7 @@ footer {
 }
 .archive-item-body { display: flex; flex-direction: column; gap: 4px; }
 .archive-title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 1.0625rem;
   font-weight: 400;
   color: var(--text);
@@ -1321,7 +1323,7 @@ footer {
 .topic-card:hover .topic-card-image img { transform: scale(1.03); }
 .topic-card-image--placeholder { height: 140px; background: var(--bg3); }
 .topic-card-body { padding: 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.topic-card-name { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; font-weight: 400; color: var(--text); margin: 0; }
+.topic-card-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 400; color: var(--text); margin: 0; }
 .topic-card-desc { font-size: 0.875rem; color: var(--text-2); line-height: 1.5; margin: 0; }
 .topic-card-count { font-size: 0.75rem; color: var(--text-3); margin-top: auto; }
 
@@ -1391,7 +1393,7 @@ footer {
   color: var(--text-3);
 }
 .author-header-name {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 400;
   color: var(--text);
@@ -1416,7 +1418,7 @@ footer {
 }
 .error-inner { max-width: 480px; }
 .error-code {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 6rem;
   color: var(--text-3);
   line-height: 1;
@@ -1424,7 +1426,7 @@ footer {
   opacity: 0.3;
 }
 .error-heading {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 400;
   color: var(--text);

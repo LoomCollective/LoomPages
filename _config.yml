@@ -7,6 +7,11 @@ baseurl: ""
 author: paul-hobson
 lang: en
 
+# Brand tokens — per-site CSS var overrides loaded after main.css
+# Leave empty for the default Loom palette.
+tokens_css: ""
+fonts_url: ""
+
 permalink: /:title/
 future: true
 
