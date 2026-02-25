@@ -21,23 +21,39 @@ layout: default
       </p>
     </div><!-- /.hero-content -->
 
-    <!-- Decorative mock card -->
+    <!-- Live preview of the latest featured post -->
     <div class="hero-visual" aria-hidden="true">
-      <div class="hero-card-mock">
-        <div class="mock-tag"></div>
-        <div class="mock-title"></div>
-        <div class="mock-title mock-title--short"></div>
-        <div class="mock-line"></div>
-        <div class="mock-line mock-line--short"></div>
-        <div class="mock-img"></div>
-        <div class="mock-avatar-row">
-          <div class="mock-avatar"></div>
-          <div class="mock-meta">
-            <div class="mock-meta-name"></div>
-            <div class="mock-meta-date"></div>
+      {% assign _hero = site.posts | where: "featured", true | first %}
+      {% unless _hero %}{% assign _hero = site.posts.first %}{% endunless %}
+      {% if _hero %}
+      <article class="post-card hero-card-preview">
+        {% if _hero.image %}
+        <div class="card-image">
+          <img src="{{ _hero.image }}" alt="" loading="eager">
+        </div>
+        {% else %}
+        <div class="card-image card-image--no-feature"></div>
+        {% endif %}
+        <div class="card-body">
+          {% if _hero.categories.first %}
+          <span class="card-tag">{{ _hero.categories.first }}</span>
+          {% endif %}
+          <h3 class="card-title">{{ _hero.title }}</h3>
+          {% if _hero.excerpt %}
+          <p class="card-excerpt">{{ _hero.excerpt | strip_html | truncatewords: 20 }}</p>
+          {% endif %}
+          <div class="card-meta">
+            <div class="card-avatar card-avatar--initials">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg>
+            </div>
+            <div class="card-meta-info">
+              <span class="card-author">{{ _hero.author | default: site.author }}</span>
+              <span class="card-date">{{ _hero.date | date: "%-d %b %Y" }}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </article>
+      {% endif %}
     </div>
 
   </div><!-- /.hero -->
