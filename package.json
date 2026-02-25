@@ -5,17 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:pauldhobson": "vite build && bundle exec jekyll build --config _config.yml,_config.pauldhobson.yml",
-    "build:subhaus": "vite build && bundle exec jekyll build --config _config.yml,_config.subhaus.yml",
-    "build:wayward": "vite build && bundle exec jekyll build --config _config.yml,_config.wayward.yml",
-    "build:qshift": "vite build && bundle exec jekyll build --config _config.yml,_config.qshift.yml",
     "search": "npx pagefind --site _site",
     "new": "bash scripts/new-draft.sh",
     "preview": "bundle exec jekyll serve --drafts",
-    "preview:pauldhobson": "bundle exec jekyll serve --drafts --config _config.yml,_config.pauldhobson.yml",
-    "preview:subhaus": "bundle exec jekyll serve --drafts --config _config.yml,_config.subhaus.yml",
-    "preview:wayward": "bundle exec jekyll serve --drafts --config _config.yml,_config.wayward.yml",
-    "preview:qshift": "bundle exec jekyll serve --drafts --config _config.yml,_config.qshift.yml",
     "publish": "bash scripts/publish.sh"
   },
   "dependencies": {

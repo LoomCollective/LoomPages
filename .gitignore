@@ -1,6 +1,5 @@
 _site/
 .jekyll-cache/
-assets/built/
 node_modules/
 .bundle/
 .DS_Store
