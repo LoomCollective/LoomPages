@@ -92,12 +92,18 @@ navigation:
     url: /
   - title: Topics
     url: /topics/
+  - title: Collections
+    url: /collections/
+  - title: Start Here
+    url: /start-here/
   - title: Archive
     url: /archive/
 
 secondary_navigation:
   - title: About
     url: /about/
+  - title: Contact
+    url: /contact/
   - title: RSS
     url: /feed.xml
 

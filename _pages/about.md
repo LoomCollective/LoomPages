@@ -4,16 +4,21 @@ title: About
 permalink: /about/
 ---
 
-Loom is a publication about computational thinking, environmental modelling, and the mathematics of complex systems.
+Loom Collective publishes essays on artificial intelligence, institutional change, and the structural forces shaping how we work and organise.
 
-Posts range from short notes to long-form computational essays with interactive visualisations — population dynamics, energy systems, ecological models — built to be read, not just cited.
+## What we write about
 
-## The setup
+Four intersecting domains:
 
-Posts are written in Markdown and published via Jekyll on GitHub Pages. Mathematical notation uses KaTeX. Diagrams use Mermaid. Interactive charts use Apache ECharts and D3. Maps use Leaflet. Scrollytelling stories use Scrollama.
+- **AI & institutional change** — how machine intelligence reshapes the rules, hierarchies, and power structures of organisations
+- **Incentive structures** — why institutions behave as they do, and what it takes to change them
+- **Power, governance, and work** — who holds authority, how it shifts, and what that means for people at every level
+- **Systems thinking** — understanding complex adaptive systems, feedback loops, and emergent behaviour
 
-The source for every post and the theme itself is public on GitHub.
+## Why it matters
 
-## Contact
+Most writing about AI focuses on the technology. We're more interested in the systems the technology is embedded in — the incentive structures, the power asymmetries, the institutional logics that shape what gets built and who it serves.
 
-Reach out via [GitHub](https://github.com/pauldhobson) or the RSS feed if you want to follow along.
+## About the author
+
+Paul Hobson writes from the perspective of someone who has spent time building platforms, leading teams, and thinking carefully about how complex organisations actually function.
