@@ -1,11 +1,27 @@
 title: Loom
-description: Jekyll theme. Clean typography, dark mode, computational essays.
+description: Clean typography, dark mode, computational essays.
 logo: /assets/images/loom_collective.jpg
 # url: "https://loomcollective.ai"
 url: "https://loomcollective.github.io"
 baseurl: ""
 author: paul-hobson
 lang: en
+
+# Brand — controls which assets/css/brand-{name}.css is loaded.
+brand: loom
+brand_name: "Loom Collective"
+brand_default_theme: "dark"
+
+# fonts_url — override the Google Fonts URL for brand-specific typefaces.
+fonts_url: ""
+
+# tokens_css — optional extra CSS after the brand file for site-specific tweaks.
+tokens_css: ""
+
+# Theme submodule paths (theme/ is git submodule pointing at subhaus95/template-main)
+layouts_dir:  theme/_layouts
+includes_dir: theme/_includes
+plugins_dir:  theme/_plugins
 
 permalink: /:title/
 future: true
@@ -14,21 +30,18 @@ future: true
 twitter: ""
 facebook: ""
 
-# Analytics — paste your Cloudflare Web Analytics token here (Settings → Web Analytics → your site)
-# Leave empty to disable. To swap providers later, replace this block with your new snippet.
+# Analytics — Cloudflare Web Analytics token
 analytics_token: ""
 
-# Mapbox GL JS — paste your public token (pk.eyJ...) here.
-# Keep secret tokens in GitHub Actions secrets instead (see HOWTO.md §17).
+# Mapbox GL JS — public token (pk.eyJ...)
 mapbox_token: "pk.eyJ1IjoiYnJlYWRlZGNvZCIsImEiOiJjbW0xa25qc2EwMmtwMnJwejJlNndqdnoxIn0._7I9PwXuFLrOQINVZ84y1w"
 
-# Giscus comments — get values from https://giscus.app after enabling GitHub Discussions on the repo
-# Add `comments: true` to any post's front matter to show the comment widget.
+# Giscus comments
 giscus:
   repo: "LoomCollective/loomcollective.github.io"
   repo_id: "R_kgDORYNKVA"
   category: "Announcements"
-  category_id: "DIC_kwDORYNKVM4C3J-l"   # fill in after creating the Announcements category in GitHub Discussions
+  category_id: "DIC_kwDORYNKVM4C3J-l"
 
 collections:
   pages:
@@ -89,13 +102,7 @@ secondary_navigation:
     url: /feed.xml
 
 exclude:
-  - src/
-  - node_modules/
-  - package.json
-  - package-lock.json
-  - vite.config.js
-  - tailwind.config.js
-  - postcss.config.js
+  - theme/         # submodule — layouts/includes/plugins still loaded via *_dir config
   - Gemfile
   - Gemfile.lock
   - .github/

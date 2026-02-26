@@ -5,3 +5,4 @@ node_modules/
 .bundle/
 .DS_Store
 Gemfile.lock
+assets/dist/
