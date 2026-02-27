@@ -17,7 +17,7 @@ For discussion on published essays, comments are open on individual posts. For e
 
 You can also reach us on [GitHub](https://github.com/LoomCollective).
 
-<form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<form class="contact-form" action="https://formspree.io/f/xbdabrjw" method="POST">
   <input type="hidden" name="_site" value="Loom Collective">
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
