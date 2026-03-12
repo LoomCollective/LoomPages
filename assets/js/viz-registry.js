@@ -37,6 +37,8 @@ import { renderMap, updateMap }              from './viz/mapbox.js';
 import { renderLeaflet, updateLeaflet }      from './viz/leaflet.js';
 import { renderD3, updateD3 }                from './viz/d3.js';
 import { renderRicker, renderRickerScrolly } from './models/ricker.js';
+import { renderOilShock }                   from './models/oil-shock.js';
+import { initPyodide, renderPyodideCell }    from './viz/pyodide.js';
 
 // ── ECharts element router ────────────────────────────────────────────────────
 // [data-viz] elements: route to a named renderer or fall back to generic ECharts.
@@ -44,6 +46,7 @@ import { renderRicker, renderRickerScrolly } from './models/ricker.js';
 const ECHARTS_RENDERERS = {
   ricker:           renderRicker,
   'ricker-scrolly': renderRickerScrolly,
+  'oil-shock':      renderOilShock,
 };
 
 function renderEChartsEl(el, options) {
@@ -58,13 +61,16 @@ export const REGISTRY = [
 
   // ── KaTeX (inline and display mathematics) ─────────────────────────────────
   //   Front matter: math: true  →  body class tag-hash-math
-  //   Also auto-detected from $ signs in content and .math-* elements.
+  //   Also auto-detected from .math-* elements or display-math $$ delimiters.
+  //   NOTE: Single $ is intentionally NOT auto-detected — it triggers falsely
+  //   on currency values (e.g. "$50 billion"). Use math: true in front matter
+  //   for any post with LaTeX, or $$...$$ display math will trigger it.
   {
     id: 'math',
     detect: (content) =>
       document.body.classList.contains('tag-hash-math') ||
       !!document.querySelector('.math, .math-inline, .math-display') ||
-      !!(content?.textContent.includes('$')),
+      !!(content?.textContent.includes('$$')),
     cdn: {
       styles:  ['https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css'],
       scripts: [
@@ -114,12 +120,32 @@ export const REGISTRY = [
       !!document.querySelector('[data-viz]'),
     cdn: {
       styles:  [],
-      scripts: ['https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'],
+      scripts: ['https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js'],
     },
     init:     null,
     selector: '[data-viz]',
     render:   renderEChartsEl,
     update:   updateEChart,
+  },
+
+  // ── ECharts GL (3D charts — scatter3D, bar3D, surface, globe) ─────────────
+  //   Front matter: gl: true  →  body class tag-hash-gl
+  //   MUST come after the echarts entry so echarts.min.js loads first.
+  //   No selector/render — GL extends the global echarts object; inline scripts
+  //   using scatter3D, grid3D, etc. work automatically once this loads.
+  //
+  //   Usage: add gl: true to front matter alongside viz: true.
+  {
+    id: 'echarts-gl',
+    detect: () => document.body.classList.contains('tag-hash-gl'),
+    cdn: {
+      styles:  [],
+      scripts: ['https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js'],
+    },
+    init:     () => { window.__echartsGL = true; },
+    selector: null,
+    render:   null,
+    update:   null,
   },
 
   // ── Leaflet (interactive maps, no API key required) ───────────────────────────
@@ -203,6 +229,34 @@ export const REGISTRY = [
     selector: '[data-map]',
     render:   (el) => renderMap(el, {}),
     update:   (el, data, instance) => updateMap(el, data, instance),
+  },
+
+  // ── Pyodide (Python-in-WebAssembly, interactive cells) ───────────────────────
+  //   Front matter: pyodide: true  →  body class tag-hash-pyodide
+  //   Also auto-detected from .pyodide-cell elements.
+  //
+  //   MUST be last in registry — Pyodide is ~8 MB from CDN; placing it last
+  //   ensures all other viz adapters render before this heavyweight load begins.
+  //
+  //   Authoring (in .qmd or raw Markdown):
+  //     ::: {.pyodide-cell}
+  //     ```python
+  //     import numpy as np
+  //     print(np.exp(-1.5))
+  //     ```
+  //     :::
+  //
+  //   Constraints: numpy pre-loaded; no file I/O; cells are stateless per run.
+  {
+    id: 'pyodide',
+    detect: () =>
+      document.body.classList.contains('tag-hash-pyodide') ||
+      !!document.querySelector('.pyodide-cell'),
+    cdn: { styles: [], scripts: [] },  // CDN loaded by initPyodide() via dynamic import
+    init:     initPyodide,
+    selector: '.pyodide-cell',
+    render:   renderPyodideCell,
+    update:   null,
   },
 
 ];
