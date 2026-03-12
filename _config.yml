@@ -53,7 +53,7 @@ defaults:
       path: "_posts"
     values:
       layout: post
-      image: /assets/images/og-default.png
+      image: /assets/images/og-default.webp
   - scope:
       path: "_pages"
     values:

@@ -41,25 +41,25 @@
 const TILE_PRESETS = {
   // OpenStreetMap — no key required, global coverage
   osm: {
-    url:     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    url:     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.webp',
     attr:    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 19,
   },
   // CartoDB Positron — minimal light style, free
   carto: {
-    url:     'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    url:     'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.webp',
     attr:    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     maxZoom: 20,
   },
   // CartoDB Dark Matter
   'carto-dark': {
-    url:     'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    url:     'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.webp',
     attr:    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     maxZoom: 20,
   },
   // Stadia Alidade Smooth
   stadia: {
-    url:     'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+    url:     'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.webp',
     attr:    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 20,
   },
